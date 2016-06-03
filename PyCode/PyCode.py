@@ -16,6 +16,8 @@ def getwebsite(instr):
     if instr.upper() == 'NEWPWD':
         newpwd()
         return
+    if instr == '':
+        return
     list = db.search(instr)
     if len(list) == 0:
         return
@@ -60,15 +62,15 @@ def newpwd():
             defstr = 'username'
         else:
             defstr = 'pwd' + str(i)
-        key = input(str(i) + 'Info name :' + defstr + '?')
+        key = input("The " + str(i) + ' Info name :' + defstr + '?')
         if key == '':
             key = defstr
         if key.upper() == 'Q':
             return
         if i == 0:
-            val = input('Input the value: ~r')
+            val = input('Input the value: \r\n')
         else:
-            val = getpass.getpass('Input the value: ~r')
+            val = getpass.getpass('Input the value: \r\n')
         db.addnamepwd(websiteid, key, val)
         
 

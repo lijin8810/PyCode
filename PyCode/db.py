@@ -1,6 +1,7 @@
 import sqlite3
 import uuid
 import pinyin
+import encryption
 
 conn = sqlite3.connect('.\code.db')
 cr = conn.cursor()
@@ -14,6 +15,7 @@ def addnamepwd(websiteid, name, val):
             conn.commit()
             return
     uid = uuid.uuid4().hex
+    val = encryption.hide(name, val)
     cr.execute("insert into namepwd (uuid, websiteid, name, val, seq) values (?,?,?,?, (select max(seq) + 1 from namepwd where  websiteid = ?))", (uid, websiteid, name, val, websiteid,))
     conn.commit()
     return
