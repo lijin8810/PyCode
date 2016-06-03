@@ -32,9 +32,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PyCode.py" />
+    <Compile Include="PyCodeSetup.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="DBSQL.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="test\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

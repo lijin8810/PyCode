@@ -1,13 +1,15 @@
 import rsa
 import os
+import pyperclip
 
 PubFilename = ".\pub.pem"
 PrivFilename = ".\priv.pem"
 
 def show(str1, str2):
     privkey = getprivkey()
-    bts = rsa.decrypt(str2, privkey)
-    print(str1 + ":" + bts.decode())
+    pwd = rsa.decrypt(str2, privkey).decode()
+    pyperclip.copy(pwd)
+    print(str1 + "成功复制到粘贴板。")
 
 def hide(str1, str2):
     pubkey = getpubkey()
