@@ -16,6 +16,7 @@ def run():
         welcome()
         encryption.createkeys()
     encryption.getpubkey()
+    encryption.getcode()
     instr = input('请输入关键字进行搜索(q/Q退出；newpwd添加新的密码项):')
     while instr.upper() != 'Q':
         getwebsite(instr)
@@ -28,7 +29,7 @@ def getwebsite(instr):
         newpwd()
         return
     if instr.upper() == 'RANDOMPWD':
-        password.getpwd()
+        print(password.getpwd())
         return
     if instr == '':
         return

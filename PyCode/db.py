@@ -48,7 +48,7 @@ def addwebsite(webname):
     if len(list) > 0:
         return list[0][0], False
     uid = uuid.uuid4().hex
-    inputcode = input('inputcode?')
+    inputcode = input('请输入快速检索代码：')
     py = "".join(pinyin.getpy(webname))
     cr.execute("insert into website (uuid, website, py, inputcode) values (?,?,?,?)", (uid, webname, py, inputcode,))
     conn.commit()

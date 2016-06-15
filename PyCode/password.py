@@ -2,8 +2,9 @@ import random
 
 def getpwd():
     s = input("请输入想要的密码结构，A表示大小写字母，0代表数字，?代表符号，如‘aa000000’等：")
+    return getpwd1(s)
 
-def getpwd(fstr):
+def getpwd1(fstr):
     pwd = ''
     init()
     for a in fstr:

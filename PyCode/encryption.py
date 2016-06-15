@@ -9,14 +9,19 @@ PrivFilename = ".\priv.pem"
 CodeList = []
 
 def show(str1, str2):
-    privkey = getprivkey()
-    pwd = rsa.decrypt(str2, privkey).decode()
-    return pwd
+    try:
+        privkey = getprivkey()
+        pwd = rsa.decrypt(str2, privkey).decode()
+        return pwd
+    except:
+        return ''
 
 def hide(str1, str2):
-    pubkey = getpubkey()
-    return rsa.encrypt(str2.encode(encoding='utf-8'), pubkey)
-
+    try:
+        pubkey = getpubkey()
+        return rsa.encrypt(str2.encode(encoding='utf-8'), pubkey)
+    except:
+        return ''
 
 def getpubkey():
     pub = db.getRSAPub()
@@ -36,7 +41,6 @@ def getprivkey():
     for index in CodeList:
         priv = priv[0:index] + chr(ord((priv[index])) - i) + priv[index + 1 :]
         i = i + 1
-    print(priv)
     try:
         return rsa.PrivateKey.load_pkcs1(priv)
     except:
@@ -48,6 +52,11 @@ def getcode():
         for c in code:
             index = ord(c)
             CodeList.append(index)
+        if code != show('', hide('', code)):
+            print('密码错误。')
+            CodeList.clear()
+            getcode()
+            return
     return CodeList
 
 def createkeys():
@@ -55,7 +64,6 @@ def createkeys():
     pub = pubkey.save_pkcs1().decode()
     priv = privkey.save_pkcs1().decode()
     code = getpass.getpass("请输入此程序的密码，此密码将保护您的资料不被他人破解，请记住这唯一的密码：\r\n")
-    print(priv)
     while len(code) < 6:
         print("密码太短，不足以保护您的隐私。")
         code = getpass.getpass("请输入此程序的密码，此密码将保护您的资料不被他人破解，请记住这唯一的密码：\r\n")
@@ -63,7 +71,6 @@ def createkeys():
     for c in code:
         priv = priv[0:ord(c)] + chr(ord((priv[ord(c)])) + i) + priv[ord(c) + 1 :]
         i = i + 1
-    print(priv)
     
     db.addRSAKey(pub, priv)    
     
