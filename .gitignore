@@ -12,6 +12,7 @@
 __pycache__/
 dist/
 test/
+.vscode/
 *.pem
 
 # User-specific files (MonoDevelop/Xamarin Studio)

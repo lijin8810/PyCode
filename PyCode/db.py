@@ -6,6 +6,28 @@ import encryption
 conn = sqlite3.connect('.\code.db')
 cr = conn.cursor()
 
+def getRSAPub():
+    cr.execute("select pub from rsa ")
+    list = cr.fetchall()
+    if len(list) > 0:
+        return list[0][0]
+    else:
+        return ''
+
+def getRSAPriv():
+    cr.execute("select priv from rsa ")
+    list = cr.fetchall()
+    if len(list) > 0:
+        return list[0][0]
+    else:
+        return ''
+
+def addRSAKey(pub, priv):
+    uid = uuid.uuid4().hex
+    cr.execute("insert into rsa(uuid, pub, priv) values (?,?,?)",(uid, pub, priv,))
+    conn.commit()
+    return
+
 def addnamepwd(websiteid, name, val):
     cr.execute("select uuid from namepwd where websiteid = ? and name = ? ", (websiteid, name,))
     list = cr.fetchall()
@@ -42,13 +64,16 @@ def getnamelist(websiteid):
     return cr.fetchall()
 
 def init():
+    isFirstRun = False
     cr.execute("select name from sqlite_master where name = 'dbver'")
     var = cr.fetchall()
     if var == []:
+        isFirstRun = True
         initdb()
     cr.execute("select ver from dbver where dbname = 'code'")
     var = cr.fetchall()
     updatedb(var[0][0])
+    return isFirstRun
 
 def initdb():
     sql = ["create table dbver(dbname varchar(32), ver int)",\

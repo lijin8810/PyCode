@@ -28,6 +28,7 @@
     <Compile Include="encryption.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="password.py" />
     <Compile Include="pinyin.py">
       <SubType>Code</SubType>
     </Compile>
@@ -38,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DBSQL.sql" />
+    <Content Include="welcome.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="test\" />
